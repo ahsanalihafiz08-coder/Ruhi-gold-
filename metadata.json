@@ -1,0 +1,6 @@
+{
+  "name": "RUHI GOLD",
+  "description": "RUHI GOLD - Haute Joaillerie & Fine Jewellery Boutique at 580 Fifth Avenue, New York.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

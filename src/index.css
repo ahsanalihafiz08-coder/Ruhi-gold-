@@ -1,0 +1,55 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Cormorant Garamond", Georgia, serif;
+  --font-sans: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  --color-gold: #D4AF77;
+  --color-gold-light: #E5CBA2;
+  --color-gold-dark: #B88E52;
+  --color-ivory: #FFF8ED;
+  --color-ivory-light: #FFFCF7;
+  --color-ivory-muted: #F5E8D3;
+  --color-emerald: #164E3B;
+  --color-emerald-light: #206E54;
+  --color-emerald-dark: #0E3527;
+}
+
+html {
+  font-family: var(--font-sans);
+  background-color: #FFF8ED;
+  color: #164E3B;
+  overflow-x: hidden;
+  max-width: 100vw;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+body {
+  overflow-x: hidden;
+  max-width: 100vw;
+  margin: 0;
+  padding: 0;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+h1, h2, h3, h4, .font-serif {
+  font-family: var(--font-serif);
+}
+
+/* Completely remove any vertical/horizontal scrolling lines, overflow borders, or scroll-track lines */
+::-webkit-scrollbar {
+  display: none !important;
+  width: 0px !important;
+  height: 0px !important;
+  background: transparent !important;
+}
+
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-track-piece,
+::-webkit-scrollbar-thumb,
+::-webkit-scrollbar-corner {
+  display: none !important;
+  background: transparent !important;
+  border: none !important;
+}
