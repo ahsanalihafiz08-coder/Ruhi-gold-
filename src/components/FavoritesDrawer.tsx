@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { X, Trash2, Calendar, ArrowRight, Heart } from 'lucide-react';
 import { useFavorites, FavoriteItem } from '../context/FavoritesContext';
+import { handleImageError, localAboutFallback } from '../data/jewelleryData';
 
 interface FavoritesDrawerProps {
   isOpen: boolean;
@@ -99,14 +100,11 @@ export const FavoritesDrawer: React.FC<FavoritesDrawerProps> = ({
                   <img
                     src={fav.image}
                     alt={fav.name}
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform"
                     referrerPolicy="no-referrer"
-                    onError={(e) => {
-                      const target = e.currentTarget;
-                      if (!target.src.includes('1599643478518')) {
-                        target.src = 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=800&q=80';
-                      }
-                    }}
+                    onError={(e) => handleImageError(e, localAboutFallback)}
                   />
                 </div>
 

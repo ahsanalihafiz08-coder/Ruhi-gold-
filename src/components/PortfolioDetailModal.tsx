@@ -1,6 +1,6 @@
 import React from 'react';
 import { X, Heart, Phone, Calendar, Sparkles } from 'lucide-react';
-import { PortfolioItem, BUSINESS_INFO } from '../data/jewelleryData';
+import { PortfolioItem, BUSINESS_INFO, handleImageError, localPortfolioFallback } from '../data/jewelleryData';
 import { useFavorites } from '../context/FavoritesContext';
 
 interface PortfolioDetailModalProps {
@@ -79,14 +79,11 @@ export const PortfolioDetailModal: React.FC<PortfolioDetailModalProps> = ({
             <img
               src={item.image}
               alt={item.name}
+              loading="lazy"
+              decoding="async"
               className="w-full h-full object-cover object-center absolute inset-0"
               referrerPolicy="no-referrer"
-              onError={(e) => {
-                const target = e.currentTarget;
-                if (!target.src.includes('1605100804763')) {
-                  target.src = 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=800&q=80';
-                }
-              }}
+              onError={(e) => handleImageError(e, localPortfolioFallback)}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#164E3B]/40 via-transparent to-transparent pointer-events-none" />
             

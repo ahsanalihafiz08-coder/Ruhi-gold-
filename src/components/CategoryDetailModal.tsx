@@ -1,6 +1,6 @@
 import React from 'react';
 import { X, Heart, Phone, Calendar, Sparkles } from 'lucide-react';
-import { JewelleryCategory, BUSINESS_INFO } from '../data/jewelleryData';
+import { JewelleryCategory, BUSINESS_INFO, handleImageError, localAboutFallback } from '../data/jewelleryData';
 import { useFavorites } from '../context/FavoritesContext';
 
 interface CategoryDetailModalProps {
@@ -72,14 +72,11 @@ export const CategoryDetailModal: React.FC<CategoryDetailModalProps> = ({
             <img
               src={category.image}
               alt={category.name}
+              loading="lazy"
+              decoding="async"
               className="w-full h-full object-cover object-center absolute inset-0"
               referrerPolicy="no-referrer"
-              onError={(e) => {
-                const target = e.currentTarget;
-                if (!target.src.includes('1599643478518')) {
-                  target.src = 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=800&q=80';
-                }
-              }}
+              onError={(e) => handleImageError(e, localAboutFallback)}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#164E3B]/40 via-transparent to-transparent pointer-events-none" />
             

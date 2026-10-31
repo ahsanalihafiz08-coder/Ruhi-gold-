@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ArrowRight, Calendar } from 'lucide-react';
-import { BOUTIQUE_SERVICES, ServiceItem } from '../data/jewelleryData';
+import { BOUTIQUE_SERVICES, ServiceItem, handleImageError, localServicesFallback } from '../data/jewelleryData';
 import { ServiceDetailModal } from './ServiceDetailModal';
 
 interface ServicesSectionProps {
@@ -51,14 +51,10 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenBooking 
                 <img
                   src={serv.image}
                   alt={serv.title}
-                  loading={index < 3 ? 'eager' : 'lazy'}
+                  loading="lazy"
+                  decoding="async"
                   referrerPolicy="no-referrer"
-                  onError={(e) => {
-                    const target = e.currentTarget;
-                    if (!target.src.includes('1599643478518')) {
-                      target.src = 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=800&q=80';
-                    }
-                  }}
+                  onError={(e) => handleImageError(e, localServicesFallback)}
                   className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out transform-gpu"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#164E3B]/40 via-transparent to-transparent pointer-events-none" />

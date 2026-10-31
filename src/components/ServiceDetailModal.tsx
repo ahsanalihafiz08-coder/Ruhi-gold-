@@ -1,6 +1,6 @@
 import React from 'react';
 import { X, Calendar, Phone, Check, Sparkles } from 'lucide-react';
-import { ServiceItem, BUSINESS_INFO } from '../data/jewelleryData';
+import { ServiceItem, BUSINESS_INFO, handleImageError, localServicesFallback } from '../data/jewelleryData';
 
 interface ServiceDetailModalProps {
   service: ServiceItem | null;
@@ -42,8 +42,11 @@ export const ServiceDetailModal: React.FC<ServiceDetailModalProps> = ({
           <img
             src={service.image}
             alt={service.title}
+            loading="lazy"
+            decoding="async"
             className="w-full h-full object-cover object-center"
             referrerPolicy="no-referrer"
+            onError={(e) => handleImageError(e, localServicesFallback)}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#164E3B]/70 via-[#164E3B]/20 to-transparent" />
           <div className="absolute bottom-4 left-6">

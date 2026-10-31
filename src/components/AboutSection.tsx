@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Heart, ArrowRight } from 'lucide-react';
-import { ABOUT_CATEGORIES, JewelleryCategory } from '../data/jewelleryData';
+import { ABOUT_CATEGORIES, JewelleryCategory, handleImageError, localAboutFallback } from '../data/jewelleryData';
 import { useFavorites } from '../context/FavoritesContext';
 import { AboutCardPopup } from './AboutCardPopup';
 
@@ -61,14 +61,10 @@ export const AboutSection: React.FC<AboutSectionProps> = ({
                   <img
                     src={cat.image}
                     alt={cat.name}
-                    loading={index < 3 ? 'eager' : 'lazy'}
+                    loading="lazy"
+                    decoding="async"
                     referrerPolicy="no-referrer"
-                    onError={(e) => {
-                      const target = e.currentTarget;
-                      if (!target.src.includes('1599643478518')) {
-                        target.src = 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=800&q=80';
-                      }
-                    }}
+                    onError={(e) => handleImageError(e, localAboutFallback)}
                     className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out transform-gpu"
                   />
 

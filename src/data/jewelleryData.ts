@@ -60,14 +60,37 @@ export const BUSINESS_INFO = {
   }
 };
 
-// Permanent, high-reliability CDN fallback image ensuring zero broken images on Netlify/deployment
-export const JEWELLERY_FALLBACK_IMAGE = 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=800&q=80';
+// Local image assets bundled directly in the app so they never fail on external hosting errors
+import localAboutFallback from '../assets/images/about_rings_collection_1793150829009.jpg';
+import localHeroShowcase from '../assets/images/hero_jewellery_showcase_1793150828264.jpg';
+import localPortfolioFallback from '../assets/images/portfolio_necklace_collection_1793150828621.jpg';
+import localServicesFallback from '../assets/images/services_boutique_consultation_1793150828972.jpg';
 
-export const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+export {
+  localAboutFallback,
+  localHeroShowcase,
+  localPortfolioFallback,
+  localServicesFallback
+};
+
+// Ultra-reliable local asset fallback ensuring zero broken images or external hosting errors
+export const JEWELLERY_FALLBACK_IMAGE = localAboutFallback;
+
+// Instant fallback SVG silhouette data-URI if network fails completely
+export const GOLD_JEWELLERY_SVG_PLACEHOLDER =
+  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300' width='400' height='300'%3E%3Crect width='400' height='300' fill='%23FAF6EE'/%3E%3Ccircle cx='200' cy='150' r='55' fill='none' stroke='%23D4AF77' stroke-width='6'/%3E%3Ccircle cx='200' cy='95' r='12' fill='%23164E3B' stroke='%23D4AF77' stroke-width='2'/%3E%3Cpath d='M200 88 L204 95 L200 102 L196 95 Z' fill='%23D4AF77'/%3E%3Ctext x='200' y='235' font-family='serif' font-size='14' letter-spacing='3' fill='%23164E3B' text-anchor='middle'%3ERUHI GOLD%3C/text%3E%3C/svg%3E";
+
+export const handleImageError = (
+  e: React.SyntheticEvent<HTMLImageElement, Event>,
+  fallbackSrc: string = localAboutFallback
+) => {
   const target = e.currentTarget;
   if (!target.dataset.triedFallback) {
-    target.dataset.triedFallback = 'true';
-    target.src = JEWELLERY_FALLBACK_IMAGE;
+    target.dataset.triedFallback = 'local';
+    target.src = fallbackSrc;
+  } else if (target.dataset.triedFallback === 'local') {
+    target.dataset.triedFallback = 'svg';
+    target.src = GOLD_JEWELLERY_SVG_PLACEHOLDER;
   }
 };
 

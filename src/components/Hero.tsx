@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { BUSINESS_INFO } from '../data/jewelleryData';
+import { BUSINESS_INFO, localHeroShowcase } from '../data/jewelleryData';
 
 interface HeroProps {
   onContactClick: () => void;
@@ -52,6 +52,7 @@ export const Hero: React.FC<HeroProps> = ({ onContactClick }) => {
         <video
           ref={videoRef}
           src={HERO_VIDEO_URL}
+          poster={localHeroShowcase}
           autoPlay
           loop
           muted

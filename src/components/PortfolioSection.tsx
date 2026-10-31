@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Heart, ArrowRight, Calendar } from 'lucide-react';
-import { PORTFOLIO_ITEMS, PortfolioItem } from '../data/jewelleryData';
+import { PORTFOLIO_ITEMS, PortfolioItem, handleImageError, localPortfolioFallback } from '../data/jewelleryData';
 import { useFavorites } from '../context/FavoritesContext';
 import { PortfolioDetailModal } from './PortfolioDetailModal';
 
@@ -56,14 +56,10 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ onOpenBookin
                   <img
                     src={item.image}
                     alt={item.name}
-                    loading={index < 3 ? 'eager' : 'lazy'}
+                    loading="lazy"
+                    decoding="async"
                     referrerPolicy="no-referrer"
-                    onError={(e) => {
-                      const target = e.currentTarget;
-                      if (!target.src.includes('1605100804763')) {
-                        target.src = 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=800&q=80';
-                      }
-                    }}
+                    onError={(e) => handleImageError(e, localPortfolioFallback)}
                     className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out transform-gpu"
                   />
 
